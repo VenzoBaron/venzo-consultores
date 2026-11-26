@@ -16,8 +16,12 @@
  *   descripcion Texto principal de la tarjeta.
  *   estado      'disponible' | 'proximamente'. «Próximamente» se muestra solo con
  *               'proximamente'; no depende de que exista o no un destino.
- *   opciones    Opcional. Selector interno de la tarjeta (solo EfectivaMente).
- *               Inicialmente ninguna opción está desplegada.
+ *   opciones    Opcional. Selector interno de la tarjeta con dos o más opciones de igual
+ *               peso. Inicialmente ninguna está desplegada y se puede cambiar de opción.
+ *   selector    Opcional. Texto que encabeza el selector (por defecto, «Elige tu caso:»).
+ *   consulta    Opcional. Botón que despliega, dentro de la propia tarjeta, un panel con
+ *               el selector, información común y un aviso de disponibilidad. No envía
+ *               ni reserva nada: solo muestra información.
  *   enlaces     Opcional. Botones externos de la tarjeta. Sin enlaces, la tarjeta
  *               muestra solo su descripción (sin botones vacíos).
  *   alFinal     true fija el servicio en la última posición, pase lo que pase.
@@ -39,6 +43,20 @@ export interface Opcion {
   botones: Boton[];
 }
 
+export interface Consulta {
+  /** Texto del botón que abre el panel (p. ej. «Consultar mi situación»). */
+  boton: string;
+  /** Información común a todas las opciones; se muestra al elegir cualquiera de ellas. */
+  comun: {
+    titulo: string;
+    parrafos: string[];
+    modalidad: string;
+    aclaracion: string;
+  };
+  /** Estado del canal de solicitudes, mostrado tras la información. */
+  aviso: string;
+}
+
 export interface Servicio {
   id: string;
   nombre: string;
@@ -48,6 +66,8 @@ export interface Servicio {
   descripcion: string;
   estado: 'disponible' | 'proximamente';
   opciones?: Opcion[];
+  selector?: string;
+  consulta?: Consulta;
   enlaces?: Boton[];
   alFinal?: boolean;
 }
@@ -102,9 +122,56 @@ const lista: Servicio[] = [
   {
     id: 'coaching',
     nombre: 'Coaching personal y profesional',
+    frase: 'Cuando no sabes cómo seguir, podemos empezar por entender qué te está frenando.',
     descripcion:
-      'Un espacio para aclarar qué necesitas, ordenar tus objetivos y explorar tu siguiente paso. Acompañamiento ante decisiones y bloqueos en tu vida personal y profesional.',
+      'Un espacio para ordenar tus ideas, aclarar tus objetivos y explorar cómo avanzar. Sesiones individuales, online y presenciales, para particulares, emprendedores y profesionales.',
+    // El servicio está disponible; lo pendiente es el canal de solicitudes (ver `consulta.aviso`).
     estado: 'disponible',
+    selector: '¿Qué te gustaría abordar?',
+    opciones: [
+      {
+        id: 'personal',
+        etiqueta: 'Una situación personal',
+        intro: 'Para momentos en los que necesitas aclarar qué quieres, valorar alternativas o encontrar tu siguiente paso.',
+        lista: [
+          'Te sientes perdido o no sabes cómo avanzar.',
+          'No sabes qué estudiar o hacia dónde orientar tu futuro.',
+          'Necesitas aclarar prioridades y objetivos.',
+          'Te cuesta elegir entre varias opciones.',
+          'Quieres preparar una conversación difícil o abordar un desacuerdo.',
+          'Estás atravesando un cambio personal o profesional.',
+        ],
+        botones: [],
+      },
+      {
+        id: 'profesional',
+        etiqueta: 'Una situación profesional o de negocio',
+        intro: 'Para emprendedores, autónomos y profesionales que necesitan ordenar sus ideas y avanzar en las decisiones de su actividad.',
+        lista: [
+          'No sabes cuál debe ser el siguiente paso de tu negocio.',
+          'Necesitas definir objetivos y ordenar prioridades.',
+          'Tienes una decisión profesional pendiente.',
+          'Quieres preparar una conversación difícil con socios, colaboradores o clientes.',
+          'Buscas encajar tu actividad profesional con tu vida personal.',
+          'Estás valorando un cambio de rumbo profesional.',
+        ],
+        botones: [],
+      },
+    ],
+    consulta: {
+      boton: 'Consultar mi situación',
+      comun: {
+        titulo: '¿Cómo trabajaremos?',
+        parrafos: [
+          'Partiremos de una situación concreta que quieras abordar. A través del diálogo socrático —preguntas que ayudan a examinar tus ideas, supuestos y alternativas— exploraremos qué necesitas, qué opciones tienes y qué puedes hacer después.',
+          'Las decisiones serán tuyas. Mi papel será acompañarte en ese proceso y aportar perspectiva desde mi formación en Psicología, gestión y mediación.',
+        ],
+        modalidad: 'Sesiones individuales, online y presenciales.',
+        aclaracion:
+          'Este servicio se centra en orientación, objetivos y toma de decisiones. La atención de psicología sanitaria tendrá su propio espacio en Venzo, próximamente.',
+      },
+      aviso: 'Estamos preparando el acceso a las solicitudes de este servicio.',
+    },
   },
   {
     id: 'mediacion',

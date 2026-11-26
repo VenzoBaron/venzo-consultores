@@ -406,6 +406,31 @@ button { font: inherit; }
 .efm__ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
 .efm__ctas .btn { white-space: normal; text-align: left; }
 
+/* Panel de consulta (Coaching): se despliega dentro de la tarjeta y reutiliza el selector. */
+.consulta { margin-top: 28px; }
+.consulta__btn { white-space: normal; text-align: left; }
+.consulta__btn::after {
+  content: ""; flex: none; width: 8px; height: 8px; margin: -4px 0 0 4px;
+  border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg); transition: transform .4s var(--ease-out);
+}
+.consulta__btn[aria-expanded="true"]::after { transform: rotate(225deg); margin-top: 4px; }
+.consulta__panel { margin-top: 28px; }
+.js .consulta__panel:not(.is-open), .js .consulta__comun:not(.is-open) { display: none; }
+.motion .consulta__panel.is-open, .motion .consulta__comun.is-open { animation: efm-in .6s var(--ease-out); }
+.consulta__h { margin: 0 0 16px; font-size: clamp(26px, 2.2vw, 32px); line-height: 1.15; color: var(--ivory); }
+.consulta__comun { margin-top: 32px; padding-top: 28px; border-top: 1px solid var(--line-dark); max-width: 66ch; }
+.consulta__p { margin: 0 0 14px; font-size: 16.5px; line-height: 1.7; color: rgba(245, 243, 236, .88); }
+.consulta__modalidad { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; margin: 22px 0 0; font-size: 16px; line-height: 1.6; color: var(--ivory); }
+.consulta__etq { font-size: 12.5px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); }
+.consulta__nota { margin: 18px 0 0; padding-left: 16px; border-left: 1px solid var(--gold-line); font-size: 14.5px; line-height: 1.65; color: rgba(245, 243, 236, .8); }
+.consulta__aviso {
+  display: flex; align-items: center; gap: 10px; margin: 26px 0 0;
+  font-size: 13px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; line-height: 1.5;
+  color: rgba(245, 243, 236, .86);
+}
+.consulta__aviso::before { content: ""; flex: none; width: 6px; height: 6px; border-radius: 50%; border: 1px solid var(--gold); }
+
 /* «Próximamente»: estado informativo, no es un botón ni un enlace. */
 .services .tag { border-color: var(--gold); color: var(--gold); }
 
@@ -529,6 +554,7 @@ button { font: inherit; }
   .efm__selector { grid-template-columns: minmax(0, 1fr); }
   .efm__list { columns: 1; }
   .efm__ctas .btn { width: 100%; justify-content: space-between; }
+  .consulta__btn { width: 100%; justify-content: space-between; }
 
   .plate { padding: 16px; }
   .plate__top { font-size: 10px; }
@@ -554,6 +580,6 @@ button { font: inherit; }
 
 /* ───────────────────────── Movimiento reducido ───────────────────────── */
 @media (prefers-reduced-motion: reduce) {
-  .menu, .menu__link, .mega, .nav, .nav__bar, .logo, .services__t, .nav__link::after, .access__item, .access__arrow, .efm__opt, .efm__opt::after { transition-duration: .01s !important; transition-delay: 0s !important; }
+  .menu, .menu__link, .mega, .nav, .nav__bar, .logo, .services__t, .nav__link::after, .access__item, .access__arrow, .efm__opt, .efm__opt::after, .consulta__btn::after { transition-duration: .01s !important; transition-delay: 0s !important; }
   html { scroll-behavior: auto; }
 }

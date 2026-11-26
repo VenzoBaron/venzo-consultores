@@ -368,10 +368,11 @@
     });
   });
 
-  /* ───────────── EfectivaMente: selector interno (Particulares / Empresas y profesionales) ───────────── */
+  /* ───────────── Selectores internos (EfectivaMente, Coaching) ───────────── */
   $$('[data-efm]').forEach((box) => {
     const opts = $$('[data-efm-opt]', box);
     const panels = opts.map((o) => document.getElementById(o.getAttribute('aria-controls')));
+    const comun = $('[data-efm-comun]', box); // información común: visible al elegir cualquier opción
     opts.forEach((opt, i) => {
       opt.addEventListener('click', () => {
         const open = opt.getAttribute('aria-expanded') !== 'true';
@@ -380,8 +381,20 @@
           o.setAttribute('aria-expanded', String(on));
           if (panels[k]) panels[k].classList.toggle('is-open', on);
         });
+        if (comun) comun.classList.toggle('is-open', open);
         remeasure();
       });
+    });
+  });
+
+  /* ───────────── Botón de consulta: abre el panel informativo dentro de la tarjeta ───────────── */
+  $$('[data-consulta-btn]').forEach((btn) => {
+    const panel = document.getElementById(btn.getAttribute('aria-controls'));
+    btn.addEventListener('click', () => {
+      const open = btn.getAttribute('aria-expanded') !== 'true';
+      btn.setAttribute('aria-expanded', String(open));
+      if (panel) panel.classList.toggle('is-open', open);
+      remeasure();
     });
   });
 
