@@ -1,11 +1,14 @@
 {
-  "name": "astro-theme-northlight",
+  "name": "venzo-consultores",
   "type": "module",
-  "version": "1.0.0",
-  "description": "A cinematic, scroll-driven one-page Astro theme for agencies, consultancies and studios.",
+  "version": "0.1.0",
+  "description": "Web de Venzo Consultores, centro de servicios premium. Basada en el tema Northlight para Astro (MIT).",
   "author": "Sven Esser (https://sv3n.dev)",
   "license": "MIT",
-  "keywords": ["astro", "astro-theme", "landing-page", "agency", "consulting", "dark", "scroll-animation"],
+  "keywords": [
+    "astro",
+    "venzo-consultores"
+  ],
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
@@ -13,5 +16,6 @@
   },
   "dependencies": {
     "astro": "^7.3.5"
-  }
+  },
+  "private": true
 }

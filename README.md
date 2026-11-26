@@ -1,46 +1,55 @@
-# Northlight — Astro theme
+# Venzo Consultores — web principal
 
-A cinematic, scroll-driven one-page theme for **agencies, consultancies and studios**. Dark, fast, and built with plain CSS and a single vanilla JS file — no UI framework, no animation library.
+Página de entrada de **Venzo Consultores**, centro de servicios premium. Presenta las áreas de servicio y da acceso a la web especializada de cada una.
 
-**[Live demo →](https://sv3nskie.github.io/astro-theme-northlight/)**
+Construida con [Astro](https://astro.build) a partir del tema **[Northlight](https://github.com/Sv3nskie/astro-theme-northlight)** de Sven Esser (licencia MIT, ver `LICENSE`). Se conservan su composición, el orden de secciones y las transiciones al desplazarse, con la identidad visual de Venzo.
 
-## Features
+> **Estado: vista previa, no publicada.** La página incluye `noindex` y el flujo de GitHub Pages solo se ejecuta a mano.
 
-- **Scroll choreography that rewinds.** Pinned chapters (a stacked services deck, a horizontal statement, client stories), word-by-word lighting, parallax and a 3D plate stack — all driven by scroll position, so everything plays backwards on scroll-up.
-- **Intro curtain** on first visit (once per session; add `?intro` to replay).
-- **Custom cursor, magnetic buttons, logo marquee, animated counters.**
-- **Fully responsive** with a full-screen mobile menu and `svh`-based pinning so mobile browser bars never hide content.
-- **Accessible:** respects `prefers-reduced-motion` (everything renders in its final state), skip link, semantic landmarks.
-- **Zero dependencies** beyond Astro.
+## Ver la propuesta en local
 
-## Getting started
+Requiere Node.js 22 o superior.
 
 ```bash
-npm create astro@latest -- --template Sv3nskie/astro-theme-northlight
-cd <your-project>
-npm run dev
+npm ci
+npm run dev        # http://localhost:4321
 ```
 
-## Make it yours
+Para comprobar la versión compilada: `npm run build` y después `npm run preview`.
+Añade `?intro` a la dirección para volver a ver el telón de entrada.
 
-| What | Where |
+## Qué editar y dónde
+
+| Qué | Dónde |
 | --- | --- |
-| Brand name, contact details, SEO title/description, share image | `src/config.ts` |
-| Section copy and images | `src/components/*.astro` (one file per section) |
-| Colors, type and spacing tokens | `src/styles/nocturne.css` |
-| Layout and animation states | `src/styles/main.css` |
-| Scroll/pointer behaviour | `src/scripts/main.js` |
+| **Áreas de servicio**: nombre, descripción, URL, etiqueta «Ejemplo», imagen | `src/data/servicios.ts` |
+| Nombre, título y descripción SEO, datos de contacto (vacíos = no se muestran) | `src/config.ts` |
+| Textos de cada sección | `src/components/*.astro` (un archivo por sección) |
+| Paleta y tipografías | `src/styles/tokens.css` |
+| Maquetación y estados de animación | `src/styles/main.css` |
+| Comportamiento al desplazarse y del menú | `src/scripts/main.js` |
 
-The brand name drives the logo, the intro curtain and the big footer wordmark automatically.
+### Áreas de servicio
 
-Placeholder photography is from [Unsplash](https://unsplash.com) — replace it with your own before launch.
+Cada área de `src/data/servicios.ts` genera su tarjeta, su entrada en el menú desplegable, en el índice de la sección y en el pie.
 
-## Deploying
+- Con `url: 'https://…'` el botón **«Acceder a su web»** lleva a esa dirección.
+- Con `url: null` (o vacía, o una dirección no válida) se muestra **«Próximamente»**, sin enlace.
+- `ejemplo: true` muestra la etiqueta «Ejemplo» y el aviso de áreas provisionales; ponlo en `false` cuando el contenido sea definitivo.
+- Se pueden añadir o quitar áreas: el diseño se adapta al número de entradas.
 
-Any static host works (`npm run build` → `dist/`). The included GitHub Actions workflow publishes the demo to GitHub Pages.
+## Identidad
 
-## Credits
+- Paleta: verde principal `#4F6B5B`, salvia `#799180`, bosque `#203E32`, profundo `#102824`, marfil `#F5F3EC`, dorado champán `#C5A977`, dorado oscuro `#806B45`, gris verdoso `#69716B`.
+- Tipografías: Cormorant Garamond (títulos) y Manrope (texto), desde Google Fonts.
+- Logotipos en `public/`: verde sobre fondos claros, dorado sobre oscuros. Se usan sin modificar. Los iconos (`favicon-*.png`, `apple-touch-icon.png`) y la imagen para redes (`og-venzo.png`) son el logotipo dorado colocado sobre verde profundo.
 
-Designed and built by **[Sven Esser](https://sv3n.dev?utm_source=github&utm_medium=theme-readme&utm_campaign=northlight)** — full-stack & Web3 developer. Need a custom site? [Get in touch](https://sv3n.dev/contact?utm_source=github&utm_medium=theme-readme&utm_campaign=northlight).
+## Accesibilidad y movimiento
 
-MIT licensed. Keeping the small "Theme by Sv3n" credit in the footer is appreciated but not required.
+- Con «reducir movimiento» activado, la página se muestra completa sin animaciones y los servicios aparecen como lista directa.
+- En móvil y tableta los servicios se muestran siempre como lista; la pila animada solo se usa en escritorio.
+- Enlace para saltar a los servicios, navegación por teclado con foco visible y menú móvil con el foco contenido.
+
+## Licencia
+
+MIT — se conserva el aviso de copyright original de Northlight en `LICENSE`.

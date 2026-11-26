@@ -1,72 +1,53 @@
-    <!-- 5. Featured solutions -->
-    <section id="solutions" class="solutions" aria-labelledby="solutions-title" data-reveal-window="0.85 0.45">
+---
+const pasos = [
+  {
+    idx: '01 — Explora',
+    palabra: 'Explora',
+    titulo: 'Recorre las áreas de servicio desde un único lugar.',
+    texto: 'Todas las áreas están reunidas en esta página para que puedas compararlas de un vistazo.',
+    boton: true,
+  },
+  {
+    idx: '02 — Elige',
+    palabra: 'Elige',
+    titulo: 'Identifica el área que responde a lo que necesitas.',
+    texto: 'Cada área resume en pocas líneas qué ofrece, para que encuentres la tuya sin rodeos.',
+  },
+  {
+    idx: '03 — Accede',
+    palabra: 'Accede',
+    titulo: 'Entra en su espacio especializado.',
+    texto: 'Cada área tiene su propia web. Si todavía no está disponible, lo verás indicado como «Próximamente».',
+  },
+];
+---
+    <!-- 5. Cómo funciona -->
+    <div class="solutions-wrap on-dark">
+    <section id="como-funciona" class="solutions" aria-labelledby="solutions-title" data-reveal-window="0.85 0.45">
       <div class="solutions__head" data-reveal>
-        <span class="kicker">02 — Featured solutions</span>
-        <h2 id="solutions-title" class="solutions__title">Built for the moments that shape a business.</h2>
+        <span class="kicker kicker--light">02 — Cómo funciona</span>
+        <h2 id="solutions-title" class="solutions__title">Tres pasos hasta el espacio <em>que buscas.</em></h2>
       </div>
 
-      <div class="solutions__list">
-        <article class="solution">
-          <div class="tile-tilt" data-tilt>
-            <div class="tile" data-reveal="clip">
-              <div class="tile__reveal"><div class="tile__depth" data-depth><div class="tile__parallax" data-parallax="0.07">
-                <img class="cover lighten" loading="lazy" decoding="async" alt=""
-                  src="https://images.unsplash.com/photo-1599529108753-5fcaac8e9512?auto=format&amp;fit=crop&amp;w=1600&amp;q=70"
-                  srcset="https://images.unsplash.com/photo-1599529108753-5fcaac8e9512?auto=format&amp;fit=crop&amp;w=800&amp;q=70 800w,
-                          https://images.unsplash.com/photo-1599529108753-5fcaac8e9512?auto=format&amp;fit=crop&amp;w=1200&amp;q=70 1200w,
-                          https://images.unsplash.com/photo-1599529108753-5fcaac8e9512?auto=format&amp;fit=crop&amp;w=1600&amp;q=70 1600w"
-                  sizes="(min-width: 900px) 50vw, 92vw">
-              </div></div></div>
+      <ol class="solutions__list">
+        {pasos.map((p, i) => (
+          <li class:list={['solution', { 'solution--flip': i % 2 === 1 }]}>
+            <div class="tile-tilt" data-tilt aria-hidden="true">
+              <div class="tile" data-reveal="clip">
+                <div class="tile__reveal"><div class="tile__depth" data-depth>
+                  <div class="tile__parallax" data-parallax="0.07"><div class="ornament"></div></div>
+                  <div class="tile__label"><span class="ornament__frame"></span><span class="ornament__num">{p.palabra}</span></div>
+                </div></div>
+              </div>
             </div>
-          </div>
-          <div class="solution__text">
-            <span class="solution__idx tnum" data-reveal>01 — Launch</span>
-            <h3 class="solution__title" data-reveal style="--d:.08s">Enter a new market with a plan, a brand and a launch — together.</h3>
-            <p class="lede solution__lede" data-reveal style="--d:.16s">A twelve-week programme taking you from market research to a live brand and site, with the commercial model to back it.</p>
-            <div data-reveal style="--d:.24s"><a href="#contact" class="btn btn-secondary btn-md" data-magnetic>Plan a launch</a></div>
-          </div>
-        </article>
-
-        <article class="solution solution--flip">
-          <div class="tile-tilt" data-tilt>
-            <div class="tile" data-reveal="clip">
-              <div class="tile__reveal"><div class="tile__depth" data-depth><div class="tile__parallax" data-parallax="0.07">
-                <img class="cover lighten" loading="lazy" decoding="async" alt=""
-                  src="https://images.unsplash.com/photo-1623055960919-4e91ce1ab11c?auto=format&amp;fit=crop&amp;w=1600&amp;q=70"
-                  srcset="https://images.unsplash.com/photo-1623055960919-4e91ce1ab11c?auto=format&amp;fit=crop&amp;w=800&amp;q=70 800w,
-                          https://images.unsplash.com/photo-1623055960919-4e91ce1ab11c?auto=format&amp;fit=crop&amp;w=1200&amp;q=70 1200w,
-                          https://images.unsplash.com/photo-1623055960919-4e91ce1ab11c?auto=format&amp;fit=crop&amp;w=1600&amp;q=70 1600w"
-                  sizes="(min-width: 900px) 50vw, 92vw">
-              </div></div></div>
+            <div class="solution__text">
+              <span class="solution__idx tnum" data-reveal>{p.idx}</span>
+              <h3 class="solution__title" data-reveal style="--d:.08s">{p.titulo}</h3>
+              <p class="lede solution__lede" data-reveal style="--d:.16s">{p.texto}</p>
+              {p.boton && <div data-reveal style="--d:.24s"><a href="#servicios" class="btn btn-secondary btn-md" data-magnetic>Ver las áreas</a></div>}
             </div>
-          </div>
-          <div class="solution__text">
-            <span class="solution__idx tnum" data-reveal>02 — Reposition</span>
-            <h3 class="solution__title" data-reveal style="--d:.08s">Outgrown your brand? Reset how the market sees you.</h3>
-            <p class="lede solution__lede" data-reveal style="--d:.16s">Positioning, identity and messaging rebuilt around where the business is going — rolled out without losing the customers you have.</p>
-            <div data-reveal style="--d:.24s"><a href="#contact" class="btn btn-secondary btn-md" data-magnetic>Talk repositioning</a></div>
-          </div>
-        </article>
-
-        <article class="solution">
-          <div class="tile-tilt" data-tilt>
-            <div class="tile" data-reveal="clip">
-              <div class="tile__reveal"><div class="tile__depth" data-depth><div class="tile__parallax" data-parallax="0.07">
-                <img class="cover lighten" loading="lazy" decoding="async" alt=""
-                  src="https://images.unsplash.com/photo-1685107306307-147226ea476f?auto=format&amp;fit=crop&amp;w=1600&amp;q=70"
-                  srcset="https://images.unsplash.com/photo-1685107306307-147226ea476f?auto=format&amp;fit=crop&amp;w=800&amp;q=70 800w,
-                          https://images.unsplash.com/photo-1685107306307-147226ea476f?auto=format&amp;fit=crop&amp;w=1200&amp;q=70 1200w,
-                          https://images.unsplash.com/photo-1685107306307-147226ea476f?auto=format&amp;fit=crop&amp;w=1600&amp;q=70 1600w"
-                  sizes="(min-width: 900px) 50vw, 92vw">
-              </div></div></div>
-            </div>
-          </div>
-          <div class="solution__text">
-            <span class="solution__idx tnum" data-reveal>03 — Scale</span>
-            <h3 class="solution__title" data-reveal style="--d:.08s">Grow the team and the numbers without growing the chaos.</h3>
-            <p class="lede solution__lede" data-reveal style="--d:.16s">Operating model, systems and digital tooling designed for the next stage — so growth feels like momentum, not friction.</p>
-            <div data-reveal style="--d:.24s"><a href="#contact" class="btn btn-secondary btn-md" data-magnetic>Plan for scale</a></div>
-          </div>
-        </article>
-      </div>
+          </li>
+        ))}
+      </ol>
     </section>
+    </div>

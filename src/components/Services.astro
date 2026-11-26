@@ -1,98 +1,53 @@
-    <!-- 3. Services — pinned card stack -->
-    <section id="services" class="services" aria-labelledby="services-title">
+---
+import { servicios, enlaceDe, romano, dosCifras } from '../data/servicios';
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const img = (src: string) => (src.startsWith('/') ? base + src.slice(1) : src);
+const hayEjemplos = servicios.some((s) => s.ejemplo);
+const flecha = 'M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z';
+---
+    <!-- 3. Servicios — en escritorio, tarjetas apiladas que avanzan al desplazarse;
+         en móvil y con movimiento reducido, una lista directa. Datos: src/data/servicios.ts -->
+    <section id="servicios" class="services on-dark" aria-labelledby="services-title" style={`--n:${servicios.length}`}>
       <div class="services__pin">
         <div class="services__grid">
           <div class="services__intro">
             <div class="services__head">
-              <span class="kicker">01 — Services</span>
-              <h2 id="services-title" class="services__title"><span>think</span><span class="accent">clearer.</span></h2>
+              <span class="kicker kicker--light">01 — Servicios</span>
+              <h2 id="services-title" class="services__title"><span>Encuentra</span><span class="accent">tu área.</span></h2>
+              {hayEjemplos && <p class="services__note">Las áreas que se muestran son <strong>ejemplos provisionales</strong>: los servicios definitivos se publicarán próximamente.</p>}
             </div>
-            <div class="services__meta" aria-hidden="true">
-              <span class="services__bar"><span class="services__bar-fill" data-svc-bar></span></span>
-              <div>
-                <span class="services__idx tnum" data-svc-index>01</span>
-                <span class="services__titles">
-                  <span class="services__t is-active" data-svc-title>Strategy</span>
-                  <span class="services__t" data-svc-title>Brand &amp; identity</span>
-                  <span class="services__t" data-svc-title>Digital &amp; product</span>
-                  <span class="services__t" data-svc-title>Operations</span>
-                </span>
-              </div>
-            </div>
+            <nav class="services__meta" aria-label="Áreas de servicio">
+              <span class="services__bar" aria-hidden="true"><span class="services__bar-fill" data-svc-bar></span></span>
+              <ol class="services__index">
+                {servicios.map((s, i) => (
+                  <li><a href={`#servicio-${s.id}`} class:list={['services__t', { 'is-active': i === 0 }]} data-svc-title><span class="tnum">{dosCifras(i)}</span>{s.nombre}</a></li>
+                ))}
+              </ol>
+            </nav>
           </div>
 
           <div class="services__stack">
-            <article class="svc-card" data-card>
-              <div class="svc-card__media">
-                <img class="cover lighten" loading="lazy" decoding="async" alt=""
-                  src="https://images.unsplash.com/photo-1788820194578-6391ad798609?auto=format&amp;fit=crop&amp;w=1600&amp;q=70"
-                  srcset="https://images.unsplash.com/photo-1788820194578-6391ad798609?auto=format&amp;fit=crop&amp;w=800&amp;q=70 800w,
-                          https://images.unsplash.com/photo-1788820194578-6391ad798609?auto=format&amp;fit=crop&amp;w=1200&amp;q=70 1200w,
-                          https://images.unsplash.com/photo-1788820194578-6391ad798609?auto=format&amp;fit=crop&amp;w=1600&amp;q=70 1600w"
-                  sizes="(min-width: 900px) 58vw, 92vw">
-              </div>
-              <div class="svc-card__body">
-                <span class="svc-card__idx tnum">01</span>
-                <h3 class="svc-card__title">Strategy</h3>
-                <p class="svc-card__desc">Market positioning, growth planning and commercial models — a clear plan your leadership team can stand behind.</p>
-                <a href="#contact" class="btn btn-secondary svc-card__btn">Explore</a>
-              </div>
-              <div class="svc-card__shade" data-shade></div>
-            </article>
-
-            <article class="svc-card" data-card>
-              <div class="svc-card__media">
-                <img class="cover lighten" loading="lazy" decoding="async" alt=""
-                  src="https://images.unsplash.com/photo-1613694699951-0f4c6c6cb9c2?auto=format&amp;fit=crop&amp;w=1600&amp;q=70"
-                  srcset="https://images.unsplash.com/photo-1613694699951-0f4c6c6cb9c2?auto=format&amp;fit=crop&amp;w=800&amp;q=70 800w,
-                          https://images.unsplash.com/photo-1613694699951-0f4c6c6cb9c2?auto=format&amp;fit=crop&amp;w=1200&amp;q=70 1200w,
-                          https://images.unsplash.com/photo-1613694699951-0f4c6c6cb9c2?auto=format&amp;fit=crop&amp;w=1600&amp;q=70 1600w"
-                  sizes="(min-width: 900px) 58vw, 92vw">
-              </div>
-              <div class="svc-card__body">
-                <span class="svc-card__idx tnum">02</span>
-                <h3 class="svc-card__title">Brand &amp; identity</h3>
-                <p class="svc-card__desc">Naming, identity systems and tone of voice that make a business instantly recognisable — and easy to choose.</p>
-                <a href="#contact" class="btn btn-secondary svc-card__btn">Explore</a>
-              </div>
-              <div class="svc-card__shade" data-shade></div>
-            </article>
-
-            <article class="svc-card" data-card>
-              <div class="svc-card__media">
-                <img class="cover lighten" loading="lazy" decoding="async" alt=""
-                  src="https://images.unsplash.com/photo-1702360174953-b9d72d5ddba2?auto=format&amp;fit=crop&amp;w=1600&amp;q=70"
-                  srcset="https://images.unsplash.com/photo-1702360174953-b9d72d5ddba2?auto=format&amp;fit=crop&amp;w=800&amp;q=70 800w,
-                          https://images.unsplash.com/photo-1702360174953-b9d72d5ddba2?auto=format&amp;fit=crop&amp;w=1200&amp;q=70 1200w,
-                          https://images.unsplash.com/photo-1702360174953-b9d72d5ddba2?auto=format&amp;fit=crop&amp;w=1600&amp;q=70 1600w"
-                  sizes="(min-width: 900px) 58vw, 92vw">
-              </div>
-              <div class="svc-card__body">
-                <span class="svc-card__idx tnum">03</span>
-                <h3 class="svc-card__title">Digital &amp; product</h3>
-                <p class="svc-card__desc">Websites, platforms and customer journeys designed around how people actually decide — built to convert and to last.</p>
-                <a href="#contact" class="btn btn-secondary svc-card__btn">Explore</a>
-              </div>
-              <div class="svc-card__shade" data-shade></div>
-            </article>
-
-            <article class="svc-card" data-card>
-              <div class="svc-card__media">
-                <img class="cover lighten" loading="lazy" decoding="async" alt=""
-                  src="https://images.unsplash.com/photo-1758520145408-dedb359d1c49?auto=format&amp;fit=crop&amp;w=1600&amp;q=70"
-                  srcset="https://images.unsplash.com/photo-1758520145408-dedb359d1c49?auto=format&amp;fit=crop&amp;w=800&amp;q=70 800w,
-                          https://images.unsplash.com/photo-1758520145408-dedb359d1c49?auto=format&amp;fit=crop&amp;w=1200&amp;q=70 1200w,
-                          https://images.unsplash.com/photo-1758520145408-dedb359d1c49?auto=format&amp;fit=crop&amp;w=1600&amp;q=70 1600w"
-                  sizes="(min-width: 900px) 58vw, 92vw">
-              </div>
-              <div class="svc-card__body">
-                <span class="svc-card__idx tnum">04</span>
-                <h3 class="svc-card__title">Operations</h3>
-                <p class="svc-card__desc">Process, systems and team structure that let you scale without the friction — fewer handoffs, faster decisions.</p>
-                <a href="#contact" class="btn btn-secondary svc-card__btn">Explore</a>
-              </div>
-              <div class="svc-card__shade" data-shade></div>
-            </article>
+            {servicios.map((s, i) => {
+              const url = enlaceDe(s);
+              return (
+                <article class="svc-card" id={`servicio-${s.id}`} data-card aria-labelledby={`servicio-${s.id}-t`}>
+                  <div class="svc-card__media" aria-hidden="true">
+                    {s.imagen
+                      ? <img class="cover" loading="lazy" decoding="async" alt="" src={img(s.imagen)} />
+                      : <div class="ornament"><span class="ornament__frame"></span><span class="ornament__num">{romano(i + 1)}</span></div>}
+                  </div>
+                  <div class="svc-card__body">
+                    <span class="svc-card__idx"><span class="tnum">{dosCifras(i)}</span>{s.ejemplo && <span class="tag">Ejemplo</span>}</span>
+                    <h3 class="svc-card__title" id={`servicio-${s.id}-t`}>{s.nombre}</h3>
+                    <p class="svc-card__desc">{s.descripcion}</p>
+                    {url
+                      ? <a href={url} class="btn btn-primary svc-card__btn">Acceder a su web<span class="sr-only">: {s.nombre}</span> <svg width="15" height="15" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d={flecha}/></svg></a>
+                      : <span class="soon svc-card__btn">Próximamente</span>}
+                  </div>
+                  <div class="svc-card__shade" data-shade></div>
+                </article>
+              );
+            })}
           </div>
         </div>
       </div>

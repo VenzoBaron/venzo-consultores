@@ -1,0 +1,14 @@
+---
+/* Logotipo oficial. Se usa tal cual (archivo de /public), sin redibujar ni añadir efectos:
+   verde sobre fondos claros, dorado sobre fondos oscuros. */
+interface Props { variante: 'verde' | 'dorado'; class?: string; decorativo?: boolean; carga?: 'eager' | 'lazy' }
+const { variante, class: cls = '', decorativo = false, carga = 'eager' } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+---
+<img
+  class:list={['brand-logo', cls]}
+  src={`${base}venzo-logo-${variante}-transparente.svg`}
+  alt={decorativo ? '' : 'Venzo Consultores'}
+  width="1199" height="1312"
+  loading={carga} decoding="async"
+/>
