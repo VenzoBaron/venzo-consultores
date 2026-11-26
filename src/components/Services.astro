@@ -1,53 +1,90 @@
 ---
-import { servicios, enlaceDe, romano, dosCifras } from '../data/servicios';
-const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
-const img = (src: string) => (src.startsWith('/') ? base + src.slice(1) : src);
-const hayEjemplos = servicios.some((s) => s.ejemplo);
+import { servicios, botonesValidos, dosCifras } from '../data/servicios';
+// El servicio con selector (EfectivaMente) se muestra como bloque de altura natural;
+// los demás forman la pila animada en escritorio. Datos: src/data/servicios.ts
+const destacado = servicios.filter((s) => s.opciones?.length);
+const apilados = servicios.filter((s) => !s.opciones?.length);
+const pos = (id: string) => servicios.findIndex((s) => s.id === id);
 const flecha = 'M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z';
 ---
-    <!-- 3. Servicios — en escritorio, tarjetas apiladas que avanzan al desplazarse;
-         en móvil y con movimiento reducido, una lista directa. Datos: src/data/servicios.ts -->
-    <section id="servicios" class="services on-dark" aria-labelledby="services-title" style={`--n:${servicios.length}`}>
-      <div class="services__pin">
-        <div class="services__grid">
-          <div class="services__intro">
-            <div class="services__head">
-              <span class="kicker kicker--light">01 — Servicios</span>
-              <h2 id="services-title" class="services__title"><span>Encuentra</span><span class="accent">tu área.</span></h2>
-              {hayEjemplos && <p class="services__note">Las áreas que se muestran son <strong>ejemplos provisionales</strong>: los servicios definitivos se publicarán próximamente.</p>}
-            </div>
-            <nav class="services__meta" aria-label="Áreas de servicio">
-              <span class="services__bar" aria-hidden="true"><span class="services__bar-fill" data-svc-bar></span></span>
-              <ol class="services__index">
-                {servicios.map((s, i) => (
-                  <li><a href={`#servicio-${s.id}`} class:list={['services__t', { 'is-active': i === 0 }]} data-svc-title><span class="tnum">{dosCifras(i)}</span>{s.nombre}</a></li>
-                ))}
-              </ol>
-            </nav>
+    <!-- 2. Servicios: en escritorio, navegación lateral fija + bloque de EfectivaMente + tarjetas
+         apiladas que avanzan al desplazarse; en móvil y con movimiento reducido, lista directa. -->
+    <section id="servicios" class="services on-dark" aria-labelledby="services-title">
+      <div class="services__grid">
+        <div class="services__intro">
+          <div class="services__head">
+            <span class="kicker">Servicios</span>
+            <h2 id="services-title" class="services__title"><span>Encuentra</span><span class="accent">tu área.</span></h2>
           </div>
+          <nav class="services__meta" aria-label="Servicios de Venzo">
+            <span class="services__bar" aria-hidden="true"><span class="services__bar-fill" data-svc-bar></span></span>
+            <ol class="services__index">
+              {servicios.map((s, i) => (
+                <li><a href={`#servicio-${s.id}`} class:list={['services__t', { 'is-active': i === 0 }]} data-svc-title data-svc-id={s.id}><span class="tnum">{dosCifras(i)}</span>{s.nombre}</a></li>
+              ))}
+            </ol>
+          </nav>
+        </div>
 
-          <div class="services__stack">
-            {servicios.map((s, i) => {
-              const url = enlaceDe(s);
-              return (
-                <article class="svc-card" id={`servicio-${s.id}`} data-card aria-labelledby={`servicio-${s.id}-t`}>
-                  <div class="svc-card__media" aria-hidden="true">
-                    {s.imagen
-                      ? <img class="cover" loading="lazy" decoding="async" alt="" src={img(s.imagen)} />
-                      : <div class="ornament"><span class="ornament__frame"></span><span class="ornament__num">{romano(i + 1)}</span></div>}
+        <div class="services__main">
+          {destacado.map((s) => (
+            <article class="svc-card svc-card--feature" id={`servicio-${s.id}`} tabindex="-1" data-svc-target aria-labelledby={`servicio-${s.id}-t`}>
+              <div class="svc-card__head">
+                <span class="svc-card__idx"><span class="tnum">{dosCifras(pos(s.id))}</span>{s.nombre}</span>
+                <h3 class="svc-card__title" id={`servicio-${s.id}-t`}>{s.titulo ?? s.nombre}</h3>
+                {s.frase && <p class="svc-card__frase">{s.frase}</p>}
+                <p class="svc-card__desc">{s.descripcion}</p>
+              </div>
+
+              <div class="efm" data-efm>
+                <p class="efm__label" id={`servicio-${s.id}-sel`}>Elige tu caso:</p>
+                <div class="efm__selector" role="group" aria-labelledby={`servicio-${s.id}-sel`}>
+                  {s.opciones!.map((o) => (
+                    <button type="button" class="efm__opt" aria-expanded="false" aria-controls={`opcion-${s.id}-${o.id}`} data-efm-opt>{o.etiqueta}</button>
+                  ))}
+                </div>
+                {s.opciones!.map((o) => (
+                  <div class="efm__panel" id={`opcion-${s.id}-${o.id}`} data-efm-panel role="region" aria-label={o.etiqueta}>
+                    <p class="efm__intro">{o.intro}</p>
+                    <ul class="efm__list">
+                      {o.lista.map((x) => <li>{x}</li>)}
+                    </ul>
+                    <div class="efm__ctas">
+                      {botonesValidos(o.botones).map((b) => (
+                        <a href={b.url} class:list={['btn', 'btn-lg', b.variante === 'secundario' ? 'btn-secondary' : 'btn-primary']}>{b.texto} <svg width="15" height="15" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d={flecha}/></svg></a>
+                      ))}
+                    </div>
                   </div>
-                  <div class="svc-card__body">
-                    <span class="svc-card__idx"><span class="tnum">{dosCifras(i)}</span>{s.ejemplo && <span class="tag">Ejemplo</span>}</span>
-                    <h3 class="svc-card__title" id={`servicio-${s.id}-t`}>{s.nombre}</h3>
-                    <p class="svc-card__desc">{s.descripcion}</p>
-                    {url
-                      ? <a href={url} class="btn btn-primary svc-card__btn">Acceder a su web<span class="sr-only">: {s.nombre}</span> <svg width="15" height="15" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d={flecha}/></svg></a>
-                      : <span class="soon svc-card__btn">Próximamente</span>}
-                  </div>
-                  <div class="svc-card__shade" data-shade></div>
-                </article>
-              );
-            })}
+                ))}
+              </div>
+            </article>
+          ))}
+
+          <div class="services__stackwrap" data-svc-stack style={`--n:${apilados.length}`}>
+            <div class="services__pin">
+              <div class="services__stack">
+                {apilados.map((s) => {
+                  const enlaces = botonesValidos(s.enlaces);
+                  return (
+                    <article class="svc-card" id={`servicio-${s.id}`} tabindex="-1" data-card data-svc-target aria-labelledby={`servicio-${s.id}-t`}>
+                      <span class="svc-card__frame" aria-hidden="true"></span>
+                      <span class="svc-card__idx"><span class="tnum">{dosCifras(pos(s.id))}</span>{s.estado === 'proximamente' && <span class="tag">Próximamente</span>}</span>
+                      <div class="svc-card__body">
+                        <h3 class="svc-card__title" id={`servicio-${s.id}-t`}>{s.titulo ?? s.nombre}</h3>
+                        {s.frase && <p class="svc-card__frase">{s.frase}</p>}
+                        <p class="svc-card__desc">{s.descripcion}</p>
+                        {enlaces.length > 0 && (
+                          <div class="svc-card__ctas">
+                            {enlaces.map((b) => <a href={b.url} class:list={['btn', b.variante === 'secundario' ? 'btn-secondary' : 'btn-primary']}>{b.texto}</a>)}
+                          </div>
+                        )}
+                      </div>
+                      <div class="svc-card__shade" data-shade></div>
+                    </article>
+                  );
+                })}
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -7,10 +7,8 @@ import { servicios, dosCifras } from '../data/servicios';
     <a href="#top" class="logo" aria-label="Venzo Consultores — inicio"><Logo variante="dorado" class="logo__img" decorativo /></a>
     <nav class="nav__links" aria-label="Principal">
       <span class="nav__svc" data-mega-trigger><a href="#servicios" class="nav__link">Servicios</a></span>
-      <a href="#como-funciona" class="nav__link">Cómo funciona</a>
-      <a href="#venzo" class="nav__link">Venzo</a>
+      <a href="#venzo" class="nav__link">Qué es Venzo</a>
     </nav>
-    <a href="#servicios" class="btn btn-primary btn-sm nav__cta" data-magnetic>Explorar servicios</a>
     <button type="button" class="btn btn-ghost btn-icon nav__toggle" data-menu-toggle aria-label="Abrir menú" aria-expanded="false" aria-controls="menu">
       <svg class="nav__icon nav__icon--open" width="22" height="22" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM40,72H216a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16ZM216,184H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z"/></svg>
       <svg class="nav__icon nav__icon--close" width="22" height="22" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"/></svg>
@@ -18,14 +16,14 @@ import { servicios, dosCifras } from '../data/servicios';
   </div>
   <span class="rule nav__rule"></span>
 
-  <!-- Menú desplegable de servicios (escritorio: al pasar el cursor o al enfocar con teclado) -->
+  <!-- Menú desplegable de servicios (escritorio, al pasar el cursor; con teclado, el enlace «Servicios» lleva a la sección) -->
   <div class="mega" data-mega>
-    <div class="mega__grid" style={`--cols:${Math.min(servicios.length, 4)}`}>
+    <div class="mega__grid" style={`--cols:${servicios.length}`}>
       {servicios.map((s, i) => (
         <a href={`#servicio-${s.id}`} class="mega__item">
-          <span class="mega__idx tnum">{dosCifras(i)}{s.ejemplo && <span class="mega__tag">Ejemplo</span>}</span>
+          <span class="mega__idx tnum">{dosCifras(i)}{s.estado === 'proximamente' && <span class="mega__tag">Próximamente</span>}</span>
           <span class="mega__title">{s.nombre}</span>
-          <span class="mega__desc">{s.resumen ?? s.descripcion}</span>
+          {s.subtitulo && <span class="mega__desc">{s.subtitulo}</span>}
         </a>
       ))}
     </div>

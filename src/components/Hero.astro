@@ -1,28 +1,43 @@
-  <!-- 1. Portada -->
+---
+import Logo from './Logo.astro';
+import { servicios, dosCifras } from '../data/servicios';
+---
+  <!-- 1. Portada: texto + arco con logotipo; debajo, los accesos a cada servicio -->
   <section id="hero" class="hero on-dark" aria-labelledby="hero-title">
-    <div class="hero__zoom">
-      <div class="hero__scroll" data-hero-scroll>
-        <div class="hero__bg" aria-hidden="true">
+    <div class="hero__bg" data-hero-scroll aria-hidden="true"></div>
+
+    <div class="hero__inner" data-hero-copy>
+      <div class="hero__top">
+        <div class="hero__text">
+          <p class="kicker hero__kicker" data-line style="--d:0s">CONSULTORÍA 360° · PERSONAS Y NEGOCIOS</p>
+          <h1 id="hero-title" class="hero__title">
+            <span class="mask"><span class="hero__line" data-line style="--d:.06s">Para ti.</span></span>
+            <span class="mask"><span class="hero__line hero__line--accent" data-line style="--d:.16s">Para lo que importa en tu vida.</span></span>
+          </h1>
+          <p class="hero__lede" data-line style="--d:.26s">Apoyo profesional para tus gestiones, tu bienestar, tus decisiones y tus relaciones. Y, si tienes un negocio, también para él.</p>
+        </div>
+        <div class="hero__arch" aria-hidden="true">
           <span class="hero__arc hero__arc--1"></span>
           <span class="hero__arc hero__arc--2"></span>
+          <div class="hero__mark"><Logo variante="dorado" class="hero__logo" decorativo /></div>
         </div>
-        <div class="hero__shade"></div>
       </div>
-    </div>
 
-    <div class="hero__copy" data-hero-copy>
-      <h1 id="hero-title" class="hero__title">
-        <span class="mask"><span class="hero__line" data-line style="--d:0s">Lo que necesitas.</span></span>
-        <span class="mask"><span class="hero__line hero__line--accent" data-line style="--d:.12s">Al nivel que mereces.</span></span>
-      </h1>
-      <p class="hero__lede" data-line style="--d:.27s">Un solo punto de partida para descubrir un universo de servicios premium. Encuentra tu área y accede a su espacio especializado.</p>
-      <div class="hero__ctas" data-line style="--d:.36s">
-        <a href="#servicios" class="btn btn-primary btn-lg" data-magnetic>Explorar servicios <svg width="16" height="16" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M205.66,149.66l-72,72a8,8,0,0,1-11.32,0l-72-72a8,8,0,0,1,11.32-11.32L120,196.69V40a8,8,0,0,1,16,0V196.69l58.34-58.35a8,8,0,0,1,11.32,11.32Z"/></svg></a>
-      </div>
-    </div>
-
-    <div class="hero__hint" aria-hidden="true">
-      <span>Desliza</span>
-      <span class="hero__track"><span class="hero__sweep"></span></span>
+      <nav class="access" aria-labelledby="access-title" data-line style="--d:.36s">
+        <h2 id="access-title" class="access__title">¿En qué podemos ayudarte?</h2>
+        <ul class="access__grid" style={`--n:${servicios.length}`}>
+          {servicios.map((s, i) => (
+            <li>
+              <a href={`#servicio-${s.id}`} class="access__item">
+                <span class="access__idx tnum" aria-hidden="true">{dosCifras(i)}</span>
+                <span class="access__name">{s.nombre}</span>
+                {s.subtitulo && <span class="access__sub">{s.subtitulo}</span>}
+                {s.estado === 'proximamente' && <span class="access__soon">Próximamente</span>}
+                <svg class="access__arrow" width="16" height="16" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M205.66,149.66l-72,72a8,8,0,0,1-11.32,0l-72-72a8,8,0,0,1,11.32-11.32L120,196.69V40a8,8,0,0,1,16,0V196.69l58.34-58.35a8,8,0,0,1,11.32,11.32Z"/></svg>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
     </div>
   </section>

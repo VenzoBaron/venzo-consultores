@@ -4,9 +4,9 @@
  */
 export const site = {
   name: 'Venzo Consultores',
-  title: 'Venzo Consultores — Lo que necesitas. Al nivel que mereces.',
+  title: 'Venzo Consultores — Para ti. Para lo que importa en tu vida.',
   description:
-    'Un solo punto de partida para descubrir un universo de servicios premium. Encuentra tu área y accede a su espacio especializado.',
+    'Consultoría 360° para personas y negocios: apoyo profesional para tus gestiones, tu bienestar, tus decisiones y tus relaciones. Y, si tienes un negocio, también para él.',
   lang: 'es',
 
   /**

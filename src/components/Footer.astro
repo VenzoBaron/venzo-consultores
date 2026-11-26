@@ -1,32 +1,29 @@
 ---
 import { site } from '../config';
 import Logo from './Logo.astro';
-import { servicios, enlaceDe } from '../data/servicios';
+import { servicios } from '../data/servicios';
 const { email, telefono } = site.contacto;
 const tel = telefono.replace(/[^\d+]/g, '');
 ---
-    <!-- 8. Pie -->
+    <!-- 4. Pie -->
     <footer class="footer">
+      <span class="rule footer__top"></span>
       <div class="footer__cols">
-        <div class="footer__brand" data-reveal>
+        <div class="footer__brand">
           <Logo variante="verde" class="footer__logo" carga="lazy" />
-          <p class="footer__tag">Centro de servicios premium.</p>
+          <p class="footer__tag">Consultoría 360° · Personas y negocios.</p>
         </div>
-        <nav class="footer__col" aria-label="Áreas de servicio">
+        <nav class="footer__col" aria-label="Servicios (pie)">
           <span class="footer__h">Servicios</span>
-          {servicios.map((s) => {
-            const url = enlaceDe(s);
-            return url
-              ? <a href={url}>{s.nombre}</a>
-              : <span class="footer__text">{s.nombre} <span class="footer__soon">· Próximamente</span></span>;
-          })}
+          {servicios.map((s) => (
+            <a href={`#servicio-${s.id}`}>{s.nombre}{s.estado === 'proximamente' && <span class="footer__soon"> · Próximamente</span>}</a>
+          ))}
         </nav>
         <nav class="footer__col" aria-label="Secciones">
           <span class="footer__h">Navegación</span>
           <a href="#top">Inicio</a>
           <a href="#servicios">Servicios</a>
-          <a href="#como-funciona">Cómo funciona</a>
-          <a href="#venzo">Venzo</a>
+          <a href="#venzo">Qué es Venzo</a>
         </nav>
         {(email || telefono) && (
           <div class="footer__col">

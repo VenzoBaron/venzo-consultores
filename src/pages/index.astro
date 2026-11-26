@@ -4,12 +4,8 @@ import Intro from '../components/Intro.astro';
 import Header from '../components/Header.astro';
 import MobileMenu from '../components/MobileMenu.astro';
 import Hero from '../components/Hero.astro';
-import Value from '../components/Value.astro';
 import Services from '../components/Services.astro';
-import Statement from '../components/Statement.astro';
-import Solutions from '../components/Solutions.astro';
 import About from '../components/About.astro';
-import Contact from '../components/Contact.astro';
 import Footer from '../components/Footer.astro';
 ---
 <Base>
@@ -20,14 +16,10 @@ import Footer from '../components/Footer.astro';
   <MobileMenu />
   <main id="top" class="page">
     <Hero />
-    <!-- Todo lo que sigue se desliza por encima de la portada fija -->
+    <!-- Todo lo que sigue se desliza por encima de la portada -->
     <div id="sheet" class="sheet">
-      <Value />
       <Services />
-      <Statement />
-      <Solutions />
       <About />
-      <Contact />
       <Footer />
     </div>
   </main>
