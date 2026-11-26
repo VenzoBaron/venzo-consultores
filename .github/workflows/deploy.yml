@@ -1,8 +1,9 @@
-name: Deploy demo to GitHub Pages
+name: Publicar en GitHub Pages
 
+# Publicación desactivada de forma automática: la web aún no debe publicarse.
+# Solo se ejecuta a mano (pestaña Actions → «Run workflow»). Cuando se decida
+# publicar, se puede volver a añadir el disparador `push: branches: [main]`.
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 permissions:

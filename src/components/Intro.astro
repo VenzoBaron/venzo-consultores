@@ -1,11 +1,10 @@
 ---
-import { site } from '../config';
+import Logo from './Logo.astro';
 ---
-<!-- Intro curtain (first visit per session) -->
+<!-- Telón de entrada (primera visita de cada sesión) -->
 <div class="intro" aria-hidden="true">
   <div class="intro__inner">
-    <span class="intro__mask"><span class="intro__word">{site.name}</span></span>
+    <span class="intro__mask"><Logo variante="dorado" class="intro__logo" decorativo /></span>
     <span class="intro__line"></span>
   </div>
 </div>
-

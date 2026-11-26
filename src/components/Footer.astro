@@ -1,44 +1,41 @@
 ---
 import { site } from '../config';
+import Logo from './Logo.astro';
+import { servicios } from '../data/servicios';
+const { email, telefono } = site.contacto;
+const tel = telefono.replace(/[^\d+]/g, '');
 ---
-    <!-- 9. Footer -->
+    <!-- 4. Pie -->
     <footer class="footer">
-      <div class="wordmark" data-reveal="letters" aria-hidden="true">{[...site.name].map((c, i) => <span style={`--i:${i}`}>{c}</span>)}</div>
-      <span class="rule footer__rule"></span>
+      <span class="rule footer__top"></span>
       <div class="footer__cols">
         <div class="footer__brand">
-          <span class="logo logo--static"><span class="logo__mark"></span>{site.name}</span>
-          <p class="footer__tag">Strategy, brand and operations for growing companies.</p>
+          <Logo variante="verde" class="footer__logo" carga="lazy" />
+          <p class="footer__tag">Consultoría 360° · Personas y negocios.</p>
         </div>
-        <nav class="footer__col" aria-label="Services">
-          <span class="footer__h">Services</span>
-          <a href="#services" data-svc-go="0">Strategy</a>
-          <a href="#services" data-svc-go="1">Brand &amp; identity</a>
-          <a href="#services" data-svc-go="2">Digital &amp; product</a>
-          <a href="#services" data-svc-go="3">Operations</a>
+        <nav class="footer__col" aria-label="Servicios (pie)">
+          <span class="footer__h">Servicios</span>
+          {servicios.map((s) => (
+            <a href={`#servicio-${s.id}`}>{s.nombre}{s.estado === 'proximamente' && <span class="footer__soon"> · Próximamente</span>}</a>
+          ))}
         </nav>
-        <nav class="footer__col" aria-label="Company">
-          <span class="footer__h">Company</span>
-          <a href="#about">About</a>
-          <a href="#work">Client stories</a>
-          <a href="#solutions">Solutions</a>
-          <a href="#contact">Contact</a>
+        <nav class="footer__col" aria-label="Secciones">
+          <span class="footer__h">Navegación</span>
+          <a href="#top">Inicio</a>
+          <a href="#servicios">Servicios</a>
+          <a href="#venzo">Qué es Venzo</a>
         </nav>
-        <div class="footer__col footer__contact">
-          <span class="footer__h">Contact</span>
-          <a href={`mailto:${site.email}`}>{site.email}</a>
-          <span class="footer__text">{site.phone}</span>
-          <span class="muted">{site.address}</span>
-        </div>
+        {(email || telefono) && (
+          <div class="footer__col">
+            <span class="footer__h">Contacto</span>
+            {email && <a href={`mailto:${email}`}>{email}</a>}
+            {telefono && <a href={`tel:${tel}`}>{telefono}</a>}
+          </div>
+        )}
       </div>
+      <span class="rule footer__rule"></span>
       <div class="footer__bottom">
-        <span>© {new Date().getFullYear()} {site.legalName} · Theme by <a href="https://sv3n.dev?utm_source=astro-theme&utm_medium=referral&utm_campaign=northlight">Sv3n</a></span>
-        <div class="footer__legal">
-          <a href="#">LinkedIn</a>
-          <a href="#">Instagram</a>
-          <a href="#">Privacy</a>
-          <a href="#">Terms</a>
-          <a href="#">Accessibility</a>
-        </div>
+        <span>© {new Date().getFullYear()} {site.name}</span>
+        <span>Diseño basado en la plantilla <a href="https://github.com/Sv3nskie/astro-theme-northlight">Northlight</a> de Sv3n (licencia MIT)</span>
       </div>
     </footer>

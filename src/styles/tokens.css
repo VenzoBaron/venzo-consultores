@@ -1,0 +1,120 @@
+/* Venzo Consultores — tokens de identidad y clases base.
+   Paleta oficial; el dorado claro (--gold) se reserva para acentos sobre fondos
+   oscuros. Sobre marfil, los textos dorados usan --gold-dark. */
+
+:root {
+  /* Paleta de marca */
+  --green: #4F6B5B;        /* verde principal */
+  --sage: #799180;         /* verde salvia claro */
+  --forest: #203E32;       /* verde bosque */
+  --deep: #102824;         /* verde profundo */
+  --ivory: #F5F3EC;        /* beige marfil */
+  --gold: #C5A977;         /* dorado champán */
+  --gold-dark: #806B45;    /* dorado oscuro */
+  --grey: #69716B;         /* gris verdoso */
+
+  /* Derivados (mezclas de la paleta) */
+  --ivory-2: #ECE8DC;
+  --line-light: rgba(32, 62, 50, 0.16);
+  --line-dark: rgba(245, 243, 236, 0.16);
+  --gold-line: rgba(197, 169, 119, 0.38);
+
+  /* Por defecto: superficie clara */
+  --color-bg: var(--ivory);
+  --color-text: var(--forest);
+  --color-muted: var(--green);
+  --color-accent: var(--gold-dark);
+  --color-divider: var(--line-light);
+
+  --font-heading: "Cormorant Garamond", "Cormorant", Garamond, "Times New Roman", serif;
+  --font-heading-weight: 400;
+  --font-body: "Manrope", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 6px;
+}
+
+/* Superficies oscuras: cambian los colores de texto y acento de todo lo que contienen. */
+.on-dark {
+  --color-text: var(--ivory);
+  --color-muted: rgba(245, 243, 236, 0.78);
+  --color-accent: var(--gold);
+  --color-divider: var(--line-dark);
+  color: var(--color-text);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: var(--font-heading-weight);
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  margin: 0 0 8px;
+}
+em { font-style: italic; }
+
+p { margin: 0 0 12px; }
+img { display: block; max-width: 100%; }
+figure { margin: 0; }
+ol, ul { margin: 0; padding: 0; list-style: none; }
+
+:focus { outline: none; }
+:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; border-radius: 2px; }
+::selection { background: rgba(197, 169, 119, 0.4); color: var(--deep); }
+
+.sr-only {
+  position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/* — botones — */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  cursor: pointer; text-decoration: none;
+  font-family: var(--font-body); font-weight: 600;
+  font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase;
+  line-height: 1.2; color: var(--color-text);
+  background: transparent; border: 1px solid transparent;
+  padding: 10px 18px;
+  border-radius: var(--radius-sm);
+}
+.btn svg { display: block; flex: none; }
+.btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+/* Primario: dorado relleno sobre oscuro, verde bosque relleno sobre claro. */
+.btn-primary { background: var(--forest); color: var(--ivory); border-color: var(--forest); }
+.btn-primary:hover { background: var(--deep); border-color: var(--deep); color: var(--ivory); }
+.on-dark .btn-primary { background: var(--gold); color: var(--deep); border-color: var(--gold); }
+.on-dark .btn-primary:hover { background: #d3bb8f; border-color: #d3bb8f; color: var(--deep); }
+
+.btn-secondary { border-color: currentColor; color: var(--color-text); }
+.btn-secondary:hover { background: var(--color-text); color: var(--color-bg); }
+.on-dark .btn-secondary { border-color: var(--gold-line); }
+.on-dark .btn-secondary:hover { background: rgba(245, 243, 236, 0.08); color: var(--ivory); border-color: var(--gold); }
+
+.btn-ghost { color: var(--color-text); padding-inline: 4px; }
+.btn-ghost:hover { color: var(--color-accent); }
+.btn-icon { width: 44px; height: 44px; padding: 0; }
+.btn-block { width: 100%; }
+
+/* — etiqueta — */
+.tag {
+  display: inline-flex; align-items: center;
+  font-family: var(--font-body); font-size: 11px; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 3px 9px; border-radius: 999px;
+  border: 1px solid var(--color-accent); color: var(--color-accent);
+}
+[tabindex="-1"]:focus { outline: none; }

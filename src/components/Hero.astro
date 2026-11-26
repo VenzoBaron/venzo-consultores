@@ -1,36 +1,43 @@
 ---
-import { site } from '../config';
+import Logo from './Logo.astro';
+import { servicios, dosCifras } from '../data/servicios';
 ---
-  <!-- 1. Hero -->
-  <section id="hero" class="hero" aria-label="Introduction">
-    <div class="hero__zoom">
-      <div class="hero__scroll" data-hero-scroll>
-        <img class="cover lighten hero__img"
-          src="https://images.unsplash.com/photo-1703696381789-3ef203ddf609?auto=format&amp;fit=crop&amp;w=2400&amp;q=75"
-          srcset="https://images.unsplash.com/photo-1703696381789-3ef203ddf609?auto=format&amp;fit=crop&amp;w=800&amp;q=75 800w,
-                  https://images.unsplash.com/photo-1703696381789-3ef203ddf609?auto=format&amp;fit=crop&amp;w=1200&amp;q=75 1200w,
-                  https://images.unsplash.com/photo-1703696381789-3ef203ddf609?auto=format&amp;fit=crop&amp;w=1800&amp;q=75 1800w,
-                  https://images.unsplash.com/photo-1703696381789-3ef203ddf609?auto=format&amp;fit=crop&amp;w=2400&amp;q=75 2400w"
-          sizes="100vw" alt="" fetchpriority="high" decoding="async">
-        <div class="hero__shade"></div>
-      </div>
-    </div>
+  <!-- 1. Portada: texto + arco con logotipo; debajo, los accesos a cada servicio -->
+  <section id="hero" class="hero on-dark" aria-labelledby="hero-title">
+    <div class="hero__bg" data-hero-scroll aria-hidden="true"></div>
 
-    <div class="hero__copy" data-hero-copy>
-      <h1 class="hero__title">
-        <span class="mask"><span class="hero__line" data-line style="--d:0s">Clarity for</span></span>
-        <span class="mask"><span class="hero__line" data-line style="--d:.09s">businesses</span></span>
-        <span class="mask"><span class="hero__line hero__line--muted" data-line style="--d:.18s">built to last.</span></span>
-      </h1>
-      <p class="hero__lede" data-line style="--d:.27s">{site.name} is an independent advisory partner for growing companies — strategy, brand and operations under one roof, led by senior people from first call to launch.</p>
-      <div class="hero__ctas" data-line style="--d:.36s">
-        <a href="#contact" class="btn btn-primary btn-lg" data-magnetic>Start a project <svg width="16" height="16" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></a>
-        <a href="#services" class="btn btn-ghost btn-lg">Explore services</a>
+    <div class="hero__inner" data-hero-copy>
+      <div class="hero__top">
+        <div class="hero__text">
+          <p class="kicker hero__kicker" data-line style="--d:0s">CONSULTORÍA 360° · PERSONAS Y NEGOCIOS</p>
+          <h1 id="hero-title" class="hero__title">
+            <span class="mask"><span class="hero__line" data-line style="--d:.06s">Para ti.</span></span>
+            <span class="mask"><span class="hero__line hero__line--accent" data-line style="--d:.16s">Para lo que importa en tu vida.</span></span>
+          </h1>
+          <p class="hero__lede" data-line style="--d:.26s">Apoyo profesional para tus gestiones, tu bienestar, tus decisiones y tus relaciones. Y, si tienes un negocio, también para él.</p>
+        </div>
+        <div class="hero__arch" aria-hidden="true">
+          <span class="hero__arc hero__arc--1"></span>
+          <span class="hero__arc hero__arc--2"></span>
+          <div class="hero__mark"><Logo variante="dorado" class="hero__logo" decorativo /></div>
+        </div>
       </div>
-    </div>
 
-    <div class="hero__hint" aria-hidden="true">
-      <span>Scroll</span>
-      <span class="hero__track"><span class="hero__sweep"></span></span>
+      <nav class="access" aria-labelledby="access-title" data-line style="--d:.36s">
+        <h2 id="access-title" class="access__title">¿En qué podemos ayudarte?</h2>
+        <ul class="access__grid" style={`--n:${servicios.length}`}>
+          {servicios.map((s, i) => (
+            <li>
+              <a href={`#servicio-${s.id}`} class="access__item">
+                <span class="access__idx tnum" aria-hidden="true">{dosCifras(i)}</span>
+                <span class="access__name">{s.nombre}</span>
+                {s.subtitulo && <span class="access__sub">{s.subtitulo}</span>}
+                {s.estado === 'proximamente' && <span class="access__soon">Próximamente</span>}
+                <svg class="access__arrow" width="16" height="16" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M205.66,149.66l-72,72a8,8,0,0,1-11.32,0l-72-72a8,8,0,0,1,11.32-11.32L120,196.69V40a8,8,0,0,1,16,0V196.69l58.34-58.35a8,8,0,0,1,11.32,11.32Z"/></svg>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
     </div>
   </section>
