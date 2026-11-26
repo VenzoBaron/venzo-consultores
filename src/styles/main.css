@@ -494,9 +494,18 @@ button { font: inherit; }
   .hero__arch { display: none; }
   .hero__inner { padding-top: calc(var(--nav-h) + 12px); gap: 28px; }
   .hero__title { font-size: clamp(40px, 9.6vw, 72px); }
-  .access__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  /* Accesos compactos: 28 px tras la descripción (gap de .hero__inner), 16 px tras la pregunta
+     (margen de .access__title) y sin el desplazamiento residual de la animación de entrada. */
+  .hero-in .access[data-line] { transform: none; }
+  .access__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
   .access__grid > li:last-child:nth-child(odd) { grid-column: 1 / -1; }
-  .access__item { min-height: 112px; padding: 16px 16px 42px; }
+  /* Altura según el contenido: cada fila toma la de su tarjeta más alta; la última, la suya propia.
+     Cada bloque ocupa su línea (8 px entre bloques). La flecha comparte línea con el último bloque
+     cuando cabe (12 px de separación, a la derecha); si no, pasa debajo, también a la derecha. */
+  .access__item { min-height: 0; padding: 16px; flex-direction: row; flex-wrap: wrap; align-content: flex-start; align-items: flex-end; gap: 8px 12px; }
+  .access__item > * { flex: 0 0 100%; }
+  .access__item > :nth-last-child(2) { flex: 0 1 auto; min-width: 0; }
+  .access__arrow { position: static; flex: 0 0 auto; margin-left: auto; }
 }
 
 @media (max-width: 979.98px) {
